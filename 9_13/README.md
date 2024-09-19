@@ -19,7 +19,7 @@ The normal distribution fits well around the mean. But the Poisson distribution 
 numbers of zero/number of all the data (see my code in R)
 The amount of genome with 0x coverage from your simulation should be close to the Poisson expectation of 0.24%
 
-For λ = 10, the Poisson probability of having 0x coverage is ~0.00454%. Compare this value with the simulated percentage of 0x coverage calculated earlier. The simulated result works well.
+For λ = 10, the Poisson probability of having 0x coverage is ~0.00454%. My simulation aligns well with Poisson expectations.
 Normal curve performes very well in 10x, and is better than the Poisson distribution.
 
 # Step 1.6
@@ -38,7 +38,9 @@ At 30x coverage, the normal distribution and Poisson distribution are very simil
 (graphviz) cmdb@QuantBio-14 9_13 % dot -Tpng de_bruijn_graph.dot -o ex2_digraph.png
 
 # step 2.5
-ATTGATTGATTCATTGATCATTTCATTGATT
+one possible answer: ATTGATTCTTATTCATTCATTT
 
 # step 2.6
 - Ensure complete coverage of k-mers.
+- take longer k-mers.
+- Collect more data (more reads), so that every 
