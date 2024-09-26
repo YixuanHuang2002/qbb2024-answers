@@ -4,39 +4,39 @@
 
 import numpy as np
 
-# Parameters of Genome and read
+# Parameters
 genome_size = 1000000  
 read_length = 100  
 coverage = 3  
-num_reads = (coverage * genome_size) // read_length 
+num_reads = (coverage * genome_size) // read_length # have to be an integer
 
-# Initialize coverage array
+# create a zero coverage array
 coverage_array = np.zeros(genome_size, dtype= int)
 
-# Simulate reads
+# generate random 
 for i in range(num_reads):
     start = np.random.randint(0, genome_size - read_length )
     coverage_array[start:start + read_length] += 1
 
-# Save coverage array to file for R analysis
+# Save coverage array
 np.savetxt("coverage_3x.txt", coverage_array, fmt="%d")
 
-# 1.5 repeat the analysis with 10x coverage
+# 1.5 repeat the analysis with 10x coverage(just change parameter)
 
 genome_size = 1000000  
 read_length = 100  
 coverage = 10
-num_reads = (coverage * genome_size) // read_length 
+num_reads = (coverage * genome_size) // read_length # answer of first questions - num of read
 
-# Initialize coverage array
+
 coverage_array = np.zeros(genome_size)
 
-# Simulate read placement
+
 for _ in range(num_reads):
     start_position = np.random.randint(0, genome_size - read_length + 1)
     coverage_array[start_position:start_position + read_length] += 1
 
-# Save the coverage data to a text file for R plotting
+# Save the coverage data
 np.savetxt("coverage_10x.txt", coverage_array)
 
 # 1.6 repeat the analysis with 30x coverage
@@ -44,15 +44,15 @@ np.savetxt("coverage_10x.txt", coverage_array)
 genome_size = 1000000  
 read_length = 100  
 coverage = 30
-num_reads = (coverage * genome_size) // read_length 
+num_reads = (coverage * genome_size) // read_length # answer of first questions - num of read
 
-# Initialize coverage array
+
 coverage_array = np.zeros(genome_size)
 
-# Simulate read placement
+
 for _ in range(num_reads):
     start_position = np.random.randint(0, genome_size - read_length + 1)
     coverage_array[start_position:start_position + read_length] += 1
 
-# Save the coverage data to a text file for R plotting
+# Save the coverage data
 np.savetxt("coverage_30x.txt", coverage_array)
