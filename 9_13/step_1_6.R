@@ -1,41 +1,45 @@
-# step 1.6
-# Define the file name for the PNG output
-png(filename = "~/qbb2024-answers/9_13/ex1_30x_cov.png", width = 800, height = 600)
-# 30x
-coverage_data <- read.table("~/qbb2024-answers/9_13/coverage_30x.txt", header = TRUE)
+setwd("/Users/cmdb/qbb2024-answers/9_13")
 
+# step 1.5
 
-N <- 1e6
+# create a png file
+png("ex1_30x_cov.png", width = 800, height = 600)
+# fetch the 30x data
+coverage_data <- scan("/Users/cmdb/qbb2024-answers/9_13/coverage_30x.txt")
 
+hist(coverage_data,
+     breaks = seq(-0.5, max(coverage_data) + 0.5, by = 1),
+     xlab = "Coverage",
+     ylab = "Frequency",
+     main = "Coverage Depth",
+     col = "white",
+     border = "black")
 
-# Plot histogram of coverage
-hist(coverage_data$X0, breaks = 70, probability = TRUE, main = "Coverage Histogram", xlab = "Coverage Depth", ylab = "Frequency", col = "lightgreen", border = "black")
-
-# Generate a sequence of coverage depths
-coverage_depths <- 0:max(coverage_data$X0)
-
-# Poisson distribution 30
+# set the parameters
+coverage_values <- 0:max(coverage_data)
+genome_size <- length(coverage_data)
+# Poisson
 lambda <- 30
-poisson_probs <- dpois(coverage_depths, lambda)
-lines(coverage_depths, poisson_probs, col = "red", lwd = 2, type = "b")
+# Normal
+normal_mean <- 30
+normal_stdv <- sqrt(30)
 
-# Normal distribution 30
-mean_normal <- 30
-sd_normal <- sqrt(30)
-normal_probs <- dnorm(coverage_depths, mean = mean_normal, sd = sd_normal)
-lines(coverage_depths, normal_probs, col = "blue", lwd = 2, type = "b")
+# the probes & counts for poisson and normal distribution
+poisson_probs <- dpois(coverage_values, lambda)
+poisson_counts <- poisson_probs * genome_size
+normal_probs <- dnorm(coverage_values, normal_mean, normal_stdv)
+normal_counts <- normal_probs * genome_size
 
-legend("topright", legend = c("Poisson Distribution", "Normal Distribution"), 
-       col = c("red", "blue"), lwd = 3)
+# Poisson distribution
+lines(coverage_values, poisson_counts, col = "red", lwd = 2)
+# Normal distribution
+lines(coverage_values, normal_counts, col = "blue", lwd = 2)
 
-# Calculate the percentage of the genome with 0x coverage
-
-zero_coverage <- sum(coverage_data$X0 == 0)
-percentage_zero_coverage <- (zero_coverage / N) * 100
-percentage_zero_coverage
-
-
-# Poisson prediction
-poisson_zero_coverage_prob <- dpois(0, lambda)
+# legend
+legend("topright", 
+       legend = c("Poisson Distribution", "Normal Distribution"), 
+       col = c("red", "blue"),
+       lwd = 2)
 
 dev.off()
+
