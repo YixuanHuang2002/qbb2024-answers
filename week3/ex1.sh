@@ -12,8 +12,8 @@ echo $(cat A01_09.fastq|wc -l)/4|bc # there are 4 lines for each read
 # 669548 reads are present within the file
 
 ### Question 1.3 ###
-expr \( 114 \* 669548 \) / 12070000
-# average depth of coverage: 6
+expr \( 76 \* 669548 \) / 12070000
+# average depth of coverage: 4
 
 ### Question 1.4 ###
 du -sh *.fastq | sort -n
@@ -21,7 +21,7 @@ du -sh *.fastq | sort -n
 # samllest: A01_27.fastq 110M
 
 ### Question 1.5 ###
-fastqc A01_09.fastq
+fastqc *.fastq
 # What is the median base quality along the read? ~35
 # How does this translate to the probability that a given base is an error? 10^(-3.5) = 0.032%
 # the overall quality remains high, with little variation
