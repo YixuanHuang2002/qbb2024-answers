@@ -113,15 +113,11 @@ DTHHRDY_res <- DTHHRDY_res %>%
 
 library(ggplot2)
 
-VolcanoPlot = ggplot(data = SEX_res,
+volcanoPlot <- ggplot(data = SEX_res,
       aes(x = log2FoldChange, y = -log10(pvalue))) +
   geom_point(aes(color = (abs(log2FoldChange) > 1 & -log10(padj)>1))) +
-  geom_text(data = SEX_res %>% filter(abs(log2FoldChange) > 2 & -log10(padj) > 10),
-            aes(x = log2FoldChange, y = -log10(pvalue) + 5, label = GENE_NAME), size = 3,) +
-  theme_bw() +
-  theme(legend.position = "none") +
-  scale_color_manual(values = c("darkgray", "coral")) +
-  labs(y = expression(-log[10]("p-value")),
-       x = expression(log[2]("fold change")),
-       title="Differential Gene Expression by Sex")
+  labs(title = "Differential Results by Sex") +
+  theme(legend.position = c(0.2, 0.8),
+        legend.text = element_text(size = 8)) +
+  labs(y = expression(-log[10]("padj")), x = expression(log[2]("Fold Change")))
 ggsave("VolcanoPlot.png",volcanoPlot)
